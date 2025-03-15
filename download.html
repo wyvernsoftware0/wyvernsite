@@ -215,16 +215,13 @@
 
         .purchase-section::before {
             content: '';
-            position: relative;
+            position: absolute;
             top: 0;
             left: 0;
-            bottom: 4;
-            width: 100%;
+            width: 5px;
             height: 100%;
-            background: linear-gradient(135deg, var(--secondary), var(--primary));
-            z-index: -1;
-            transition: opacity 0.5s ease;
-            opacity: 0;
+            background: linear-gradient(180deg, var(--primary), var(--secondary));
+            border-radius: 15px 0 0 15px;
         }
 
         .purchase-section:hover {
