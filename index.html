@@ -1,4 +1,121 @@
-<!DOCTYPE html>
+</style>
+</head>
+<body>
+    <header id="header">
+        <a href="index.html" class="logo-container">
+            <img src="/assets/logo/White1.png" alt="Wyvern Logo">
+            <h1 class="code-text">Wyvern<span style="color: var(--secondary);">Ex</span></h1>
+        </a>
+        <nav>
+            <a href="index.html" class="code-text">Home</a>
+            <a href="dashboard.html" class="code-text">Dashboard</a>
+            <a href="cracks.html" class="code-text">Cracks</a>
+            <a href="https://discord.gg/ZtufpMsh" class="code-text">Discord</a>
+        </nav>
+    </header>
+
+    <div class="container">
+        <div class="text">
+            <h2>Redefining the Future</h2>
+            <p>With Wyvern Ex, we redefine the Gorilla Tag experience. Crafted with passion, our mod menu offers features you won't find anywhere else. Seamlessly designed and built to work flawlessly, we deliver regular updates to keep you ahead of the game. It's not just a mod menu—it's the future of Gorilla Tag.</p>
+            <a href="https://spezz.exchange/store/product/322-wyvernunbanner-1-month/" target="_blank">
+                <button class="cta-button code-text">Get Yours Now</button>
+            </a>
+        </div>
+        <div class="product-image">
+            <img src="/assets/productimage.jpg" alt="Wyvern Product" />
+        </div>
+    </div>
+
+    <div class="video-container">
+        <div class="video-wrapper">
+            <iframe src="https://www.youtube.com/embed/IKDrqkFBNmo?si=9KfF1t9uvCsfrtx6" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+        </div>
+    </div>
+    
+    <section class="features">
+        <h2 class="section-title">Features</h2>
+        <div class="features-container">
+            <div class="feature" data-delay="0">
+                <i class="feature-icon fas fa-gem"></i>
+                <h3>Unmatched Quality</h3>
+                <p>Wyvern Ex is crafted with care, delivering a mod menu that's not only powerful but also seamless. Everything just works, offering you the best experience possible in Gorilla Tag.</p>
+            </div>
+            <div class="feature" data-delay="150">
+                <i class="feature-icon fas fa-crown"></i>
+                <h3>Exclusive Features</h3>
+                <p>Discover features and mods that you've never seen before. Wyvern Ex introduces innovative options that elevate your gameplay and give you the edge you need.</p>
+            </div>
+            <div class="feature" data-delay="300">
+                <i class="feature-icon fas fa-palette"></i>
+                <h3>Sleek & Intuitive Design</h3>
+                <p>Enjoy a visually stunning and user-friendly design. Our mod menu is sleek, easy to navigate, and designed to keep your focus where it matters – on the game.</p>
+            </div>
+            <div class="feature" data-delay="450">
+                <i class="feature-icon fas fa-sync-alt"></i>
+                <h3>Frequent Updates</h3>
+                <p>Stay ahead of the game with regular updates. We're committed to providing new features and improvements fast, ensuring that your experience is always fresh and exciting.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="testimonials">
+        <h2 class="section-title">What Our Users Are Saying</h2>
+        <div class="testimonial-container">
+            <div class="testimonial-card" data-delay="0">
+                <p>"Wyvern Ex completely changed the way I play Gorilla Tag. The new features are incredible, and the performance is flawless. I love how everything just works. The sleek design makes it even better. Highly recommend!"</p>
+                <h3>GamerX_99</h3>
+            </div>
+            <div class="testimonial-card" data-delay="150">
+                <p>"I've tried other mod menus, but none come close to Wyvern Ex. The speed is unmatched, and the exclusive mods make the game feel fresh. The updates are quick and keep things exciting!"</p>
+                <h3>GorillaMaster</h3>
+            </div>
+            <div class="testimonial-card" data-delay="300">
+                <p>"I thought I had seen it all, but Wyvern Ex's features blew me away. It's like nothing I've ever used before. The mod menu is sleek, intuitive, and always running smoothly. Definitely a game-changer for Gorilla Tag players."</p>
+                <h3>MonkeyKing_42</h3>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-links">
+            <a href="index.html" class="code-text"><i class="fas fa-home"></i> Home</a>
+            <a href="dashboard.html" class="code-text"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
+            <a href="cracks.html" class="code-text"><i class="fas fa-download"></i> Cracks</a>
+            <a href="https://discord.gg/ZtufpMsh" class="code-text"><i class="fab fa-discord"></i> Discord Server</a>
+        </div>
+        <p class="copyright">&copy; 2025 Wyvern Technologies. All rights reserved.</p>
+    </footer>
+
+    <script>
+        window.addEventListener('scroll', function() {
+            const header = document.getElementById('header');
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const delay = entry.target.getAttribute('data-delay') || 0;
+                        setTimeout(() => {
+                            entry.target.classList.add('animated');
+                        }, delay);
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            document.querySelectorAll('.feature, .testimonial-card').forEach(el => {
+                observer.observe(el);
+            });
+        });
+    </script>
+</body>
+</html><!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -552,145 +669,6 @@
             border-radius: 2px;
         }
 
-        .cracks {
-            width: 100%;
-            padding: 120px 0;
-            text-align: center;
-            background-color: var(--bg-dark);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .cracks::before {
-            content: '';
-            position: absolute;
-            width: 600px;
-            height: 600px;
-            top: -200px;
-            right: -200px;
-            background: radial-gradient(circle, rgba(110, 68, 255, 0.05) 0%, rgba(255, 68, 170, 0) 70%);
-            border-radius: 50%;
-            z-index: 0;
-        }
-
-        .cracks-container {
-            display: flex;
-            flex-direction: column;
-            gap: A0px;
-            max-width: 1000px;
-            margin: 0 auto;
-            position: relative;
-            z-index: 1;
-        }
-
-        .crack-item {
-            background-color: var(--bg-card);
-            border-radius: 10px;
-            padding: 30px;
-            margin-bottom: 30px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
-            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-            opacity: 0;
-            transform: translateX(-50px);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .crack-item.animated {
-            animation: fadeInRight 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-        }
-
-        .crack-item::before {
-            content: '';
-            position: absolute;
-            left: 0;
-            top: 0;
-            height: 100%;
-            width: 4px;
-            background: linear-gradient(0deg, var(--primary), var(--secondary));
-            opacity: 0.7;
-        }
-
-        .crack-item:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
-        }
-
-        .crack-info {
-            text-align: left;
-            flex: 1;
-        }
-
-        .crack-title {
-            font-size: 1.8rem;
-            margin-bottom: 10px;
-            font-weight: 700;
-            color: var(--text-primary);
-        }
-
-        .crack-title span {
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            font-weight: 800;
-        }
-
-        .crack-description {
-            font-size: 1.1rem;
-            color: var(--text-secondary);
-            line-height: 1.6;
-            max-width: 700px;
-        }
-
-        .download-button {
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            color: #fff;
-            border: none;
-            padding: 12px 25px;
-            font-size: 1rem;
-            border-radius: 8px;
-            cursor: pointer;
-            font-weight: 600;
-            letter-spacing: 0.5px;
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-            z-index: 1;
-            margin-left: 20px;
-            white-space: nowrap;
-            box-shadow: 0 5px 15px rgba(110, 68, 255, 0.3);
-        }
-
-        .download-button::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(135deg, var(--secondary), var(--primary));
-            z-index: -1;
-            transition: opacity 0.5s ease;
-            opacity: 0;
-        }
-
-        .download-button:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 20px rgba(110, 68, 255, 0.5);
-        }
-
-        .download-button:hover::before {
-            opacity: 1;
-        }
-
-        .download-button i {
-            margin-right: 8px;
-        }
-
         footer {
             text-align: center;
             color: var(--text-secondary);
@@ -764,17 +742,6 @@
             }
         }
 
-        @keyframes fadeInRight {
-            from {
-                opacity: 0;
-                transform: translateX(-50px);
-            }
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
-        }
-
         @keyframes pulse {
             0% {
                 transform: scale(1);
@@ -829,179 +796,8 @@
                 flex: 0 1 100%;
             }
             
-            .crack-item {
-                flex-direction: column;
-                text-align: center;
-                padding: 25px;
-            }
-            
-            .crack-info {
-                text-align: center;
-                margin-bottom: 20px;
-            }
-            
-            .download-button {
-                margin-left: 0;
-                width: 100%;
-            }
-            
             .footer-links {
                 flex-direction: column;
                 gap: 20px;
             }
         }
-    </style>
-</head>
-<body>
-    <header id="header">
-        <a href="index.html" class="logo-container">
-            <img src="/assets/logo/White1.png" alt="Wyvern Logo">
-            <h1 class="code-text">Wyvern<span style="color: var(--secondary);">Ex</span></h1>
-        </a>
-        <nav>
-            <a href="#dashboard" class="code-text">Dashboard</a>
-            <a href="#cracks" class="code-text">Cracks</a>
-            <a href="#discord" class="code-text">Discord</a>
-        </nav>
-    </header>
-
-    <div class="container">
-        <div class="text">
-            <h2>Redefining the Future</h2>
-            <p>With Wyvern Ex, we redefine the Gorilla Tag experience. Crafted with passion, our mod menu offers features you won't find anywhere else. Seamlessly designed and built to work flawlessly, we deliver regular updates to keep you ahead of the game. It's not just a mod menu—it's the future of Gorilla Tag.</p>
-            <a href="https://spezz.exchange/store/product/322-wyvernunbanner-1-month/" target="_blank">
-                <button class="cta-button code-text">Get Yours Now</button>
-            </a>
-        </div>
-        <div class="product-image">
-            <img src="/assets/productimage.jpg" alt="Wyvern Product" />
-        </div>
-    </div>
-
-    <section class="features">
-        <h2 class="section-title">Features</h2>
-        <div class="features-container">
-            <div class="feature" data-delay="0">
-                <i class="feature-icon fas fa-gem"></i>
-                <h3>Unmatched Quality</h3>
-                <p>Wyvern Ex is crafted with care, delivering a mod menu that's not only powerful but also seamless. Everything just works, offering you the best experience possible in Gorilla Tag.</p>
-            </div>
-            <div class="feature" data-delay="150">
-                <i class="feature-icon fas fa-crown"></i>
-                <h3>Exclusive Features</h3>
-                <p>Discover features and mods that you've never seen before. Wyvern Ex introduces innovative options that elevate your gameplay and give you the edge you need.</p>
-            </div>
-            <div class="feature" data-delay="300">
-                <i class="feature-icon fas fa-palette"></i>
-                <h3>Sleek & Intuitive Design</h3>
-                <p>Enjoy a visually stunning and user-friendly design. Our mod menu is sleek, easy to navigate, and designed to keep your focus where it matters – on the game.</p>
-            </div>
-            <div class="feature" data-delay="450">
-                <i class="feature-icon fas fa-sync-alt"></i>
-                <h3>Frequent Updates</h3>
-                <p>Stay ahead of the game with regular updates. We're committed to providing new features and improvements fast, ensuring that your experience is always fresh and exciting.</p>
-            </div>
-        </div>
-    </section>
-
-    <section id="cracks" class="cracks">
-        <h2 class="section-title">Premium Cracks</h2>
-        <div class="cracks-container">
-            <div class="crack-item" data-delay="0">
-                <div class="crack-info">
-                    <h3 class="crack-title">Unity <span>Unleashed</span></h3>
-                    <p class="crack-description">Premium Unity Pro development environment with all features unlocked. Full access to advanced lighting, animation tools, and professional assets included.</p>
-                </div>
-                <a href="#unity-download">
-                    <button class="download-button code-text"><i class="fas fa-download"></i> Download</button>
-                </a>
-            </div>
-            
-            <div class="crack-item" data-delay="150">
-                <div class="crack-info">
-                    <h3 class="crack-title">Adobe <span>Suite X</span></h3>
-                    <p class="crack-description">Complete Adobe Creative Cloud package including Photoshop, Illustrator, After Effects, and Premiere Pro. All plugins and extensions unlocked.</p>
-                </div>
-                <a href="#adobe-download">
-                    <button class="download-button code-text"><i class="fas fa-download"></i> Download</button>
-                </a>
-            </div>
-            
-            <div class="crack-item" data-delay="300">
-                <div class="crack-info">
-                    <h3 class="crack-title">Blender <span>PRO</span></h3>
-                    <p class="crack-description">Enhanced version of Blender with exclusive professional tools for 3D modeling, rendering, and animation. Includes premium texture packs and advanced physics engines.</p>
-                </div>
-                <a href="#blender-download">
-                    <button class="download-button code-text"><i class="fas fa-download"></i> Download</button>
-                </a>
-            </div>
-            
-            <div class="crack-item" data-delay="450">
-                <div class="crack-info">
-                    <h3 class="crack-title">VR <span>Developer Kit</span></h3>
-                    <p class="crack-description">Complete VR development suite with advanced motion tracking, environment creation tools, and integration with major VR platforms. Perfect for creating immersive experiences.</p>
-                </div>
-                <a href="#vrdev-download">
-                    <button class="download-button code-text"><i class="fas fa-download"></i> Download</button>
-                </a>
-            </div>
-        </div>
-    </section>
-
-    <section class="testimonials">
-        <h2 class="section-title">What Our Users Are Saying</h2>
-        <div class="testimonial-container">
-            <div class="testimonial-card" data-delay="0">
-                <p>"Wyvern Ex completely changed the way I play Gorilla Tag. The new features are incredible, and the performance is flawless. I love how everything just works. The sleek design makes it even better. Highly recommend!"</p>
-                <h3>GamerX_99</h3>
-            </div>
-            <div class="testimonial-card" data-delay="150">
-                <p>"I've tried other mod menus, but none come close to Wyvern Ex. The speed is unmatched, and the exclusive mods make the game feel fresh. The updates are quick and keep things exciting!"</p>
-                <h3>GorillaMaster</h3>
-            </div>
-            <div class="testimonial-card" data-delay="300">
-                <p>"I thought I had seen it all, but Wyvern Ex's features blew me away. It's like nothing I've ever used before. The mod menu is sleek, intuitive, and always running smoothly. Definitely a game-changer for Gorilla Tag players."</p>
-                <h3>MonkeyKing_42</h3>
-            </div>
-        </div>
-    </section>
-
-    <footer>
-        <div class="footer-links">
-            <a href="https://discord.gg/ZtufpMsh" class="code-text"><i class="fab fa-discord"></i> Discord Server</a>
-            <a href="#dashboard" class="code-text"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
-            <a href="#cracks" class="code-text"><i class="fas fa-download"></i> Cracks</a>
-        </div>
-        <p class="copyright">&copy; 2025 Wyvern Technologies. All rights reserved.</p>
-    </footer>
-
-    <script>
-        window.addEventListener('scroll', function() {
-            const header = document.getElementById('header');
-            if (window.scrollY > 50) {
-                header.classList.add('scrolled');
-            } else {
-                header.classList.remove('scrolled');
-            }
-        });
-
-        document.addEventListener('DOMContentLoaded', function() {
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        const delay = entry.target.getAttribute('data-delay') || 0;
-                        setTimeout(() => {
-                            entry.target.classList.add('animated');
-                        }, delay);
-                    }
-                });
-            }, { threshold: 0.1 });
-
-            document.querySelectorAll('.feature, .testimonial-card, .crack-item').forEach(el => {
-                observer.observe(el);
-            });
-        });
-    </script>
-</body>
-</html>
