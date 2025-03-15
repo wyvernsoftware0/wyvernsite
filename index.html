@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Wyvern Ex</title>
+    <link rel="icon" href="/assets/logo/White1.png" type="image/png">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&display=swap');
@@ -229,7 +230,7 @@
             opacity: 1;
         }
 
-        .-image {
+        .product-image {
             position: relative;
         }
 
@@ -551,6 +552,145 @@
             border-radius: 2px;
         }
 
+        .cracks {
+            width: 100%;
+            padding: 120px 0;
+            text-align: center;
+            background-color: var(--bg-dark);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cracks::before {
+            content: '';
+            position: absolute;
+            width: 600px;
+            height: 600px;
+            top: -200px;
+            right: -200px;
+            background: radial-gradient(circle, rgba(110, 68, 255, 0.05) 0%, rgba(255, 68, 170, 0) 70%);
+            border-radius: 50%;
+            z-index: 0;
+        }
+
+        .cracks-container {
+            display: flex;
+            flex-direction: column;
+            gap: A0px;
+            max-width: 1000px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .crack-item {
+            background-color: var(--bg-card);
+            border-radius: 10px;
+            padding: 30px;
+            margin-bottom: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            opacity: 0;
+            transform: translateX(-50px);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .crack-item.animated {
+            animation: fadeInRight 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        .crack-item::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: 4px;
+            background: linear-gradient(0deg, var(--primary), var(--secondary));
+            opacity: 0.7;
+        }
+
+        .crack-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .crack-info {
+            text-align: left;
+            flex: 1;
+        }
+
+        .crack-title {
+            font-size: 1.8rem;
+            margin-bottom: 10px;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        .crack-title span {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            font-weight: 800;
+        }
+
+        .crack-description {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            line-height: 1.6;
+            max-width: 700px;
+        }
+
+        .download-button {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: #fff;
+            border: none;
+            padding: 12px 25px;
+            font-size: 1rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+            margin-left: 20px;
+            white-space: nowrap;
+            box-shadow: 0 5px 15px rgba(110, 68, 255, 0.3);
+        }
+
+        .download-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, var(--secondary), var(--primary));
+            z-index: -1;
+            transition: opacity 0.5s ease;
+            opacity: 0;
+        }
+
+        .download-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(110, 68, 255, 0.5);
+        }
+
+        .download-button:hover::before {
+            opacity: 1;
+        }
+
+        .download-button i {
+            margin-right: 8px;
+        }
+
         footer {
             text-align: center;
             color: var(--text-secondary);
@@ -624,6 +764,17 @@
             }
         }
 
+        @keyframes fadeInRight {
+            from {
+                opacity: 0;
+                transform: translateX(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
         @keyframes pulse {
             0% {
                 transform: scale(1);
@@ -678,6 +829,22 @@
                 flex: 0 1 100%;
             }
             
+            .crack-item {
+                flex-direction: column;
+                text-align: center;
+                padding: 25px;
+            }
+            
+            .crack-info {
+                text-align: center;
+                margin-bottom: 20px;
+            }
+            
+            .download-button {
+                margin-left: 0;
+                width: 100%;
+            }
+            
             .footer-links {
                 flex-direction: column;
                 gap: 20px;
@@ -693,6 +860,7 @@
         </a>
         <nav>
             <a href="#dashboard" class="code-text">Dashboard</a>
+            <a href="#cracks" class="code-text">Cracks</a>
             <a href="#discord" class="code-text">Discord</a>
         </nav>
     </header>
@@ -736,6 +904,51 @@
         </div>
     </section>
 
+    <section id="cracks" class="cracks">
+        <h2 class="section-title">Premium Cracks</h2>
+        <div class="cracks-container">
+            <div class="crack-item" data-delay="0">
+                <div class="crack-info">
+                    <h3 class="crack-title">Unity <span>Unleashed</span></h3>
+                    <p class="crack-description">Premium Unity Pro development environment with all features unlocked. Full access to advanced lighting, animation tools, and professional assets included.</p>
+                </div>
+                <a href="#unity-download">
+                    <button class="download-button code-text"><i class="fas fa-download"></i> Download</button>
+                </a>
+            </div>
+            
+            <div class="crack-item" data-delay="150">
+                <div class="crack-info">
+                    <h3 class="crack-title">Adobe <span>Suite X</span></h3>
+                    <p class="crack-description">Complete Adobe Creative Cloud package including Photoshop, Illustrator, After Effects, and Premiere Pro. All plugins and extensions unlocked.</p>
+                </div>
+                <a href="#adobe-download">
+                    <button class="download-button code-text"><i class="fas fa-download"></i> Download</button>
+                </a>
+            </div>
+            
+            <div class="crack-item" data-delay="300">
+                <div class="crack-info">
+                    <h3 class="crack-title">Blender <span>PRO</span></h3>
+                    <p class="crack-description">Enhanced version of Blender with exclusive professional tools for 3D modeling, rendering, and animation. Includes premium texture packs and advanced physics engines.</p>
+                </div>
+                <a href="#blender-download">
+                    <button class="download-button code-text"><i class="fas fa-download"></i> Download</button>
+                </a>
+            </div>
+            
+            <div class="crack-item" data-delay="450">
+                <div class="crack-info">
+                    <h3 class="crack-title">VR <span>Developer Kit</span></h3>
+                    <p class="crack-description">Complete VR development suite with advanced motion tracking, environment creation tools, and integration with major VR platforms. Perfect for creating immersive experiences.</p>
+                </div>
+                <a href="#vrdev-download">
+                    <button class="download-button code-text"><i class="fas fa-download"></i> Download</button>
+                </a>
+            </div>
+        </div>
+    </section>
+
     <section class="testimonials">
         <h2 class="section-title">What Our Users Are Saying</h2>
         <div class="testimonial-container">
@@ -758,6 +971,7 @@
         <div class="footer-links">
             <a href="https://discord.gg/ZtufpMsh" class="code-text"><i class="fab fa-discord"></i> Discord Server</a>
             <a href="#dashboard" class="code-text"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
+            <a href="#cracks" class="code-text"><i class="fas fa-download"></i> Cracks</a>
         </div>
         <p class="copyright">&copy; 2025 Wyvern Technologies. All rights reserved.</p>
     </footer>
@@ -784,7 +998,7 @@
                 });
             }, { threshold: 0.1 });
 
-            document.querySelectorAll('.feature, .testimonial-card').forEach(el => {
+            document.querySelectorAll('.feature, .testimonial-card, .crack-item').forEach(el => {
                 observer.observe(el);
             });
         });
