@@ -1,0 +1,761 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wyvern Ex - Cracks</title>
+    <link rel="icon" href="/assets/logo/White1.png" type="image/png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&display=swap');
+
+        :root {
+            --primary: #6E44FF;
+            --secondary: #FF44AA;
+            --bg-dark: #0F0F13;
+            --bg-darker: #080810;
+            --bg-card: #16161d;
+            --text-primary: #f0f0f0;
+            --text-secondary: #a0a0a0;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Space Grotesk', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-primary);
+            min-height: 100vh;
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        body::-webkit-scrollbar {
+            width: 8px;
+        }
+        
+        body::-webkit-scrollbar-track {
+            background: var(--bg-darker);
+        }
+        
+        body::-webkit-scrollbar-thumb {
+            background: var(--primary);
+            border-radius: 4px;
+        }
+
+        .code-text {
+            font-family: 'Fira Code', monospace;
+        }
+
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 20px 40px;
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            background-color: rgba(8, 8, 16, 0.85);
+            z-index: 1000;
+            backdrop-filter: blur(8px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        header.scrolled {
+            padding: 12px 40px;
+            background-color: rgba(8, 8, 16, 0.95);
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            transition: transform 0.3s ease;
+        }
+
+        .logo-container:hover {
+            transform: scale(1.02);
+        }
+
+        header img {
+            height: 40px;
+            width: auto;
+            filter: drop-shadow(0 0 8px rgba(110, 68, 255, 0.6));
+            transition: all 0.3s ease;
+        }
+
+        header h1 {
+            font-size: 2.2rem;
+            color: var(--text-primary);
+            font-weight: 700;
+            letter-spacing: 1px;
+            margin-left: 15px;
+            position: relative;
+        }
+
+        header h1::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: -5px;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.3s ease;
+        }
+
+        .logo-container:hover h1::after {
+            transform: scaleX(1);
+        }
+
+        header nav {
+            margin-left: auto;
+        }
+
+        header nav a {
+            color: var(--text-primary);
+            text-decoration: none;
+            margin-left: 35px;
+            font-size: 1rem;
+            font-weight: 500;
+            padding: 8px 20px;
+            border-radius: 6px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        header nav a::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: var(--primary);
+            z-index: -1;
+            transform: scaleX(0);
+            transform-origin: right;
+            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            border-radius: 6px;
+        }
+
+        header nav a:hover::before {
+            transform: scaleX(1);
+            transform-origin: left;
+        }
+
+        .page-header {
+            margin-top: 150px;
+            text-align: center;
+            padding-bottom: 40px;
+            position: relative;
+        }
+
+        .page-header h2 {
+            font-size: 4rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin-bottom: 20px;
+            position: relative;
+            display: inline-block;
+        }
+
+        .page-header::after {
+            content: '';
+            position: absolute;
+            width: 100px;
+            height: 4px;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            border-radius: 2px;
+        }
+
+        .page-header p {
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+            max-width: 800px;
+            margin: 0 auto 30px;
+            line-height: 1.7;
+        }
+
+        .cracks-container {
+            max-width: 1200px;
+            margin: 50px auto 100px;
+            padding: 0 20px;
+        }
+
+        .crack-item {
+            background-color: var(--bg-card);
+            border-radius: 10px;
+            padding: 40px;
+            margin-bottom: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            opacity: 0;
+            transform: translateY(50px);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .crack-item.animated {
+            animation: fadeInUp 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        .crack-item::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: 5px;
+            background: linear-gradient(0deg, var(--primary), var(--secondary));
+            opacity: 0.7;
+        }
+
+        .crack-item:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
+        }
+
+        .crack-info {
+            flex: 1;
+        }
+
+        .crack-title {
+            font-size: 2.2rem;
+            margin-bottom: 15px;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        .crack-title span {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            font-weight: 800;
+        }
+
+        .crack-description {
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+            line-height: 1.6;
+            max-width: 700px;
+            margin-bottom: 20px;
+        }
+
+        .crack-details {
+            display: flex;
+            gap: 30px;
+            margin-top: 25px;
+        }
+
+        .crack-detail {
+            display: flex;
+            align-items: center;
+            font-family: 'Fira Code', monospace;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        .crack-detail i {
+            color: var(--primary);
+            margin-right: 8px;
+            font-size: 1.1rem;
+        }
+
+        .download-button {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: #fff;
+            border: none;
+            padding: 15px 35px;
+            font-size: 1.1rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+            margin-left: 40px;
+            white-space: nowrap;
+            box-shadow: 0 8px 25px rgba(110, 68, 255, 0.4);
+        }
+
+        .download-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, var(--secondary), var(--primary));
+            z-index: -1;
+            transition: opacity 0.5s ease;
+            opacity: 0;
+        }
+
+        .download-button:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 30px rgba(110, 68, 255, 0.6);
+        }
+
+        .download-button:hover::before {
+            opacity: 1;
+        }
+
+        .download-button i {
+            margin-right: 10px;
+        }
+
+        .featured-crack {
+            position: relative;
+        }
+
+        .featured-crack::after {
+            content: 'Featured';
+            position: absolute;
+            top: 20px;
+            right: -30px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            font-family: 'Fira Code', monospace;
+            font-size: 0.8rem;
+            font-weight: 600;
+            padding: 5px 30px;
+            transform: rotate(45deg);
+            z-index: 2;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .section-divider {
+            width: 100%;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--primary), var(--secondary), transparent);
+            margin: 80px 0;
+        }
+
+        .coming-soon {
+            text-align: center;
+            padding: 60px 0;
+            margin-bottom: 100px;
+        }
+
+        .coming-soon h3 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        .coming-soon p {
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.7;
+        }
+
+        .subscribe-form {
+            margin-top: 40px;
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .subscribe-input {
+            background-color: var(--bg-card);
+            border: 1px solid rgba(110, 68, 255, 0.3);
+            padding: 15px 25px;
+            border-radius: 8px;
+            color: var(--text-primary);
+            font-family: 'Fira Code', monospace;
+            font-size: 1rem;
+            width: 100%;
+            max-width: 400px;
+            transition: all 0.3s ease;
+        }
+
+        .subscribe-input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 15px rgba(110, 68, 255, 0.3);
+        }
+
+        .subscribe-button {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: #fff;
+            border: none;
+            padding: 15px 30px;
+            font-size: 1rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            transition: all 0.3s ease;
+            font-family: 'Fira Code', monospace;
+        }
+
+        .subscribe-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        footer {
+            text-align: center;
+            color: var(--text-secondary);
+            padding: 60px 0;
+            background-color: var(--bg-darker);
+            position: relative;
+        }
+
+        footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--primary), var(--secondary), transparent);
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin: 20px 0;
+        }
+
+        footer a {
+            color: var(--text-primary);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+            padding: 8px 0;
+        }
+
+        footer a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            transform: scaleX(0);
+            transform-origin: right;
+            transition: transform 0.3s ease;
+        }
+
+        footer a:hover {
+            color: var(--primary);
+        }
+
+        footer a:hover::after {
+            transform: scaleX(1);
+            transform-origin: left;
+        }
+
+        .copyright {
+            margin-top: 30px;
+            font-size: 0.9rem;
+            font-family: 'Fira Code', monospace;
+        }
+
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.3s ease;
+            z-index: 99;
+        }
+
+        .back-to-top.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .back-to-top:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (max-width: 1200px) {
+            .crack-item {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .download-button {
+                margin-left: 0;
+                margin-top: 20px;
+                width: 100%;
+            }
+        }
+
+        @media (max-width: 768px) {
+            header {
+                padding: 15px 20px;
+            }
+            
+            header h1 {
+                font-size: 1.8rem;
+            }
+            
+            header nav a {
+                margin-left: 15px;
+                padding: 6px 12px;
+                font-size: 0.9rem;
+            }
+            
+            .page-header h2 {
+                font-size: 2.8rem;
+            }
+            
+            .crack-title {
+                font-size: 1.8rem;
+            }
+            
+            .crack-details {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .subscribe-form {
+                flex-direction: column;
+            }
+            
+            .footer-links {
+                flex-direction: column;
+                gap: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header id="header">
+        <a href="index.html" class="logo-container">
+            <img src="/assets/logo/White1.png" alt="Wyvern Logo">
+            <h1 class="code-text">Wyvern<span style="color: var(--secondary);">Ex</span></h1>
+        </a>
+        <nav>
+            <a href="index.html" class="code-text">Home</a>
+            <a href="dashboard.html" class="code-text">Dashboard</a>
+            <a href="cracks.html" class="code-text">Cracks</a>
+            <a href="https://discord.gg/ZtufpMsh" class="code-text">Discord</a>
+        </nav>
+    </header>
+
+    <div class="page-header">
+        <h2>Premium Cracks</h2>
+        <p>Explore our collection of high-quality cracks, meticulously engineered for flawless performance. Updated regularly with the latest versions and security patches.</p>
+    </div>
+
+    <div class="cracks-container">
+        <div class="crack-item featured-crack" data-delay="0">
+            <div class="crack-info">
+                <h3 class="crack-title">Unity <span>Unleashed</span> 2025</h3>
+                <p class="crack-description">Premium Unity Pro development environment with all features unlocked. Full access to advanced lighting, animation tools, and professional assets included. Perfect for game developers and VR content creators.</p>
+                <div class="crack-details">
+                    <div class="crack-detail">
+                        <i class="fas fa-code-branch"></i>
+                        <span>Version 2025.1.3</span>
+                    </div>
+                    <div class="crack-detail">
+                        <i class="fas fa-clock"></i>
+                        <span>Updated: Mar 10, 2025</span>
+                    </div>
+                    <div class="crack-detail">
+                        <i class="fas fa-download"></i>
+                        <span>Downloads: 23.4K</span>
+                    </div>
+                </div>
+            </div>
+            <a href="#unity-download">
+                <button class="download-button code-text"><i class="fas fa-download"></i> Download</button>
+            </a>
+        </div>
+        
+        <div class="crack-item" data-delay="150">
+            <div class="crack-info">
+                <h3 class="crack-title">Adobe <span>Suite X</span> Complete</h3>
+                <p class="crack-description">Complete Adobe Creative Cloud package including Photoshop, Illustrator, After Effects, and Premiere Pro. All plugins and extensions unlocked with cloud features enabled. Updated with the latest security patches.</p>
+                <div class="crack-details">
+                    <div class="crack-detail">
+                        <i class="fas fa-code-branch"></i>
+                        <span>Version 2025.2.1</span>
+                    </div>
+                    <div class="crack-detail">
+                        <i class="fas fa-clock"></i>
+                        <span>Updated: Mar 5, 2025</span>
+                    </div>
+                    <div class="crack-detail">
+                        <i class="fas fa-download"></i>
+                        <span>Downloads: 19.7K</span>
+                    </div>
+                </div>
+            </div>
+            <a href="#adobe-download">
+                <button class="download-button code-text"><i class="fas fa-download"></i> Download</button>
+            </a>
+        </div>
+        
+        <div class="crack-item" data-delay="300">
+            <div class="crack-info">
+                <h3 class="crack-title">Blender <span>PRO</span> Enhanced</h3>
+                <p class="crack-description">Enhanced version of Blender with exclusive professional tools for 3D modeling, rendering, and animation. Includes premium texture packs, advanced physics engines, and proprietary plugins for improved workflow.</p>
+                <div class="crack-details">
+                    <div class="crack-detail">
+                        <i class="fas fa-code-branch"></i>
+                        <span>Version 4.2.5</span>
+                    </div>
+                    <div class="crack-detail">
+                        <i class="fas fa-clock"></i>
+                        <span>Updated: Feb 28, 2025</span>
+                    </div>
+                    <div class="crack-detail">
+                        <i class="fas fa-download"></i>
+                        <span>Downloads: 15.9K</span>
+                    </div>
+                </div>
+            </div>
+            <a href="#blender-download">
+                <button class="download-button code-text"><i class="fas fa-download"></i> Download</button>
+            </a>
+        </div>
+        
+        <div class="crack-item" data-delay="450">
+            <div class="crack-info">
+                <h3 class="crack-title">VR <span>Developer Kit</span> Ultimate</h3>
+                <p class="crack-description">Complete VR development suite with advanced motion tracking, environment creation tools, and integration with major VR platforms. Perfect for creating immersive experiences with professional-grade assets and libraries.</p>
+                <div class="crack-details">
+                    <div class="crack-detail">
+                        <i class="fas fa-code-branch"></i>
+                        <span>Version 3.8.0</span>
+                    </div>
+                    <div class="crack-detail">
+                        <i class="fas fa-clock"></i>
+                        <span>Updated: Feb 15, 2025</span>
+                    </div>
+                    <div class="crack-detail">
+                        <i class="fas fa-download"></i>
+                        <span>Downloads: 12.3K</span>
+                    </div>
+                </div>
+            </div>
+            <a href="#vrdev-download">
+                <button class="download-button code-text"><i class="fas fa-download"></i> Download</button>
+            </a>
+        </div>
+
+        <div class="section-divider"></div>
+
+        <div class="coming-soon">
+            <h3>More Coming Soon</h3>
+            <p>We're constantly working on new premium cracks. Subscribe to get notified when we release new software.</p>
+            <div class="subscribe-form">
+                <input type="email" placeholder="Enter your email" class="subscribe-input code-text">
+                <button class="subscribe-button">Subscribe</button>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer-links">
+            <a href="index.html" class="code-text"><i class="fas fa-home"></i> Home</a>
+            <a href="dashboard.html" class="code-text"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
+            <a href="https://discord.gg/ZtufpMsh" class="code-text"><i class="fab fa-discord"></i> Discord Server</a>
+        </div>
+        <p class="copyright">&copy; 2025 Wyvern Technologies. All rights reserved.</p>
+    </footer>
+
+    <div class="back-to-top" id="backToTop">
+        <i class="fas fa-arrow-up"></i>
+    </div>
+
+    <script>
+        window.addEventListener('scroll', function() {
+            const header = document.getElementById('header');
+            const backToTop = document.getElementById('backToTop');
+            
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+            
+            if (window.scrollY > 300) {
+                backToTop.classList.add('visible');
+            } else {
+                backToTop.classList.remove('visible');
+            }
+        });
+
+        document.getElementById('backToTop').addEventListener('click', function() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const delay = entry.target.getAttribute('data-delay') || 0;
+                        setTimeout(() => {
+                            entry.target.classList.add('animated');
+                        }, delay);
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            document.querySelectorAll('.crack-item').forEach(el => {
+                observer.observe(el);
+            });
+        });
+    </script>
+</body>
+</html>
