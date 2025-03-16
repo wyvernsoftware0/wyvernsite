@@ -675,6 +675,47 @@
         display: flex;
     }
 }
+.menu-toggle {
+        display: none;
+    }
+
+    @media (max-width: 768px) {
+        .menu-toggle {
+            display: block;
+            cursor: pointer;
+            font-size: 1.8rem;
+            color: var(--text-primary);
+            position: absolute;
+            right: 20px;
+            top: 15px;
+            z-index: 1500;
+        }
+
+        header nav {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            width: 100%;
+            background: rgba(8, 8, 16, 0.95);
+            flex-direction: column;
+            display: none;
+            padding: 10px 0;
+            text-align: center;
+            transition: all 0.3s ease-in-out;
+        }
+
+        header nav.show {
+            display: flex;
+        }
+
+        header nav a {
+            display: block;
+            padding: 12px;
+            font-size: 1rem;
+        }
+    }
+
+
     </style>
 </head>
 <body>

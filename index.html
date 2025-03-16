@@ -688,22 +688,50 @@
             }
         }
 
+
         @media (max-width: 768px) {
-            header {
-                padding: 15px 20px;
-            }
-            
-            header h1 {
-                font-size: 1.8rem;
-            }
-            
-            header nav a {
-                margin-left: 15px;
-                padding: 6px 12px;
-                font-size: 0.9rem;
-            }
-            
-            .text h2 {
+        header {
+            padding: 15px 20px;
+        }
+        
+        header h1 {
+            font-size: 1.8rem;
+        }
+        
+        header nav {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            width: 100%;
+            background: rgba(8, 8, 16, 0.95);
+            flex-direction: column;
+            display: none; /* Hide navbar by default */
+            padding: 10px 0;
+            text-align: center;
+            transition: all 0.3s ease-in-out;
+        }
+        
+        header nav.show {
+            display: flex; /* Show navbar when 'show' class is added */
+        }
+
+        header nav a {
+            display: block;
+            padding: 12px;
+            font-size: 1rem;
+        }
+
+        .menu-toggle {
+            display: block;
+            cursor: pointer;
+            font-size: 1.8rem;
+            color: var(--text-primary);
+            position: absolute;
+            right: 20px;
+            top: 15px;
+            z-index: 1500;
+        }
+        .text h2 {
                 font-size: 2.8rem;
             }
             
@@ -715,42 +743,46 @@
                 flex-direction: column;
                 gap: 20px;
             }
-        }
-        @media (max-width: 768px) {
+    }
     .menu-toggle {
-        display: block;
-        cursor: pointer;
-        font-size: 1.8rem;
-        color: var(--text-primary);
-        position: absolute;
-        right: 20px;
-        top: 15px;
-        z-index: 1500;
-    }
-
-    header nav {
-        position: absolute;
-        top: 100%;
-        left: 0;
-        width: 100%;
-        background: rgba(8, 8, 16, 0.95);
-        flex-direction: column;
         display: none;
-        padding: 10px 0;
-        text-align: center;
-        transition: all 0.3s ease-in-out;
     }
 
-    header nav a {
-        display: block;
-        padding: 12px;
-        font-size: 1rem;
-    }
+    @media (max-width: 768px) {
+        .menu-toggle {
+            display: block;
+            cursor: pointer;
+            font-size: 1.8rem;
+            color: var(--text-primary);
+            position: absolute;
+            right: 20px;
+            top: 15px;
+            z-index: 1500;
+        }
 
-    header nav.show {
-        display: flex;
+        header nav {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            width: 100%;
+            background: rgba(8, 8, 16, 0.95);
+            flex-direction: column;
+            display: none;
+            padding: 10px 0;
+            text-align: center;
+            transition: all 0.3s ease-in-out;
+        }
+
+        header nav.show {
+            display: flex;
+        }
+
+        header nav a {
+            display: block;
+            padding: 12px;
+            font-size: 1rem;
+        }
     }
-}
 
 
 </style>
@@ -867,14 +899,14 @@
             });
         });
 
-                document.addEventListener('DOMContentLoaded', function () {
-            const menuToggle = document.querySelector('.menu-toggle');
-            const nav = document.querySelector('header nav');
-
-            menuToggle.addEventListener('click', function () {
-                nav.classList.toggle('show');
-            });
+        document.addEventListener('DOMContentLoaded', () => {
+        const menuToggle = document.querySelector('.menu-toggle');
+        const nav = document.querySelector('header nav');
+        
+        menuToggle.addEventListener('click', () => {
+            nav.classList.toggle('show');
         });
+    });
 
     </script>
 </body>
