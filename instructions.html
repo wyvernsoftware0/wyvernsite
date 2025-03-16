@@ -12,6 +12,32 @@
     <link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-touch-icon.png" />
     <meta name="apple-mobile-web-app-title" content="Wyvern" />
     <link rel="manifest" href="/favicon/site.webmanifest" />
+        <!-- Open Graph Meta Tags (For Discord, Telegram, Facebook, etc.) -->
+        <meta property="og:title" content="Wyvern Ex - The Best Gorilla Tag Mod Menu">
+        <meta property="og:description" content="Dominate Gorilla Tag with Wyvern Ex – Packed with exclusive mods, seamless performance, and frequent updates.">
+        <meta property="og:image" content="https://wyvern.li/assets/logo/Blue.webp">
+        <meta property="og:image:secure_url" content="https://wyvern.li/assets/logo/Blue.webp">
+        <meta property="og:image:type" content="image/png">
+        <meta property="og:image:width" content="200">
+        <meta property="og:image:height" content="200">
+        <meta property="og:url" content="https://wyvern.li">
+        <meta property="og:type" content="website">
+        <meta property="og:site_name" content="Wyvern Ex">
+    
+        <!-- Twitter Card (For Twitter embeds) -->
+        <meta name="twitter:card" content="summary_large_image">
+        <meta name="twitter:title" content="Wyvern Ex - The Best Gorilla Tag Mod Menu">
+        <meta name="twitter:description" content="Dominate Gorilla Tag with Wyvern Ex – Packed with exclusive mods, seamless performance, and frequent updates.">
+        <meta name="twitter:image" content="https://wyvern.li/assets/logo/Blue.webp">
+        <meta name="twitter:image:alt" content="Wyvern Ex Logo">
+        <meta name="twitter:url" content="https://wyvern.li">
+    
+        <meta name="theme-color" content="#42a5f5">
+        <meta name="msapplication-TileColor" content="#42a5f5">
+    
+        <!-- Telegram Embed Support -->
+        <!-- <meta name="telegram:channel" content="@yourtelegramchannel"> -->
+        <meta name="telegram:site" content="https://wyvern.li">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&display=swap');
 
@@ -481,6 +507,41 @@
                 gap: 20px;
             }
         }
+        @media (max-width: 768px) {
+    .menu-toggle {
+        display: block;
+        cursor: pointer;
+        font-size: 1.8rem;
+        color: var(--text-primary);
+        position: absolute;
+        right: 20px;
+        top: 15px;
+        z-index: 1500;
+    }
+
+    header nav {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        background: rgba(8, 8, 16, 0.95);
+        flex-direction: column;
+        display: none;
+        padding: 10px 0;
+        text-align: center;
+        transition: all 0.3s ease-in-out;
+    }
+
+    header nav a {
+        display: block;
+        padding: 12px;
+        font-size: 1rem;
+    }
+
+    header nav.show {
+        display: flex;
+    }
+}
     </style>
 </head>
 <body>
@@ -489,6 +550,7 @@
             <img src="/assets/logo/logoico.png" alt="Wyvern Logo">
             <h1 class="code-text">Wyvern<span style="color: var(--secondary);">Ex</span></h1>
         </a>
+        <div class="menu-toggle"><i class="fas fa-bars"></i></div>
         <nav>
             <a href="index.html" class="code-text"><i class="fas fa-home"></i> Home</a>
             <a href="cracks.html" class="code-text"><i class="fas fa-download"></i> Cracks</a>
@@ -593,6 +655,14 @@
             } else {
                 header.classList.remove('scrolled');
             }
+        });
+        document.addEventListener('DOMContentLoaded', function () {
+            const menuToggle = document.querySelector('.menu-toggle');
+            const nav = document.querySelector('header nav');
+
+            menuToggle.addEventListener('click', function () {
+                nav.classList.toggle('show');
+            });
         });
     </script>
 </body>
