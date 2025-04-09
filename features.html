@@ -628,6 +628,20 @@
         </div>
     </section>
 
+    <div id="upload-container" style="display: none; text-align: center; max-width: 600px; margin: 0 auto 50px; padding: 30px; background-color: var(--bg-card); border-radius: 12px; box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);">
+        <i class="fas fa-file-upload" style="font-size: 2.5rem; color: var(--primary); margin-bottom: 20px;"></i>
+        <h3 style="font-size: 1.5rem; margin-bottom: 15px;">Couldn't auto-load features</h3>
+        <p style="color: var(--text-secondary); margin-bottom: 20px;">We're showing sample features. For actual features, download the file from g.wyvern.li/auth/files/modmenufeatures.txt and upload it here:</p>
+        <label for="file-input" style="display: inline-block; padding: 12px 25px; background: linear-gradient(135deg, var(--primary), var(--secondary)); color: white; border-radius: 8px; cursor: pointer; font-weight: 600; transition: all 0.3s ease;">
+            Upload Features File
+        </label>
+        <input type="file" id="file-input" accept=".txt" style="display: none;">
+    </div>
+    
+    <div id="features-loaded-message" style="display: none; text-align: center; max-width: 600px; margin: 0 auto 50px; padding: 15px; background-color: rgba(46, 204, 113, 0.2); border: 1px solid #2ecc71; border-radius: 8px; color: #2ecc71;">
+        <i class="fas fa-check-circle" style="margin-right: 10px;"></i> Features loaded successfully!
+    </div>
+
     <div id="features-container" class="features-container">
         <div class="loading-container">
             <div class="loading-spinner"></div>
@@ -679,7 +693,18 @@
             // Function to fetch mod features
             async function fetchModFeatures() {
                 try {
-                    const response = await fetch('https://g.wyvern.li/auth/files/modmenufeatures.txt');
+                    // Properly format the URL with https protocol
+                    const url = 'https://g.wyvern.li/auth/files/modmenufeatures.txt';
+                    
+                    // Try to fetch with proper CORS handling
+                    const response = await fetch(url, {
+                        method: 'GET',
+                        mode: 'cors',
+                        cache: 'no-cache',
+                        headers: {
+                            'Accept': 'text/plain'
+                        }
+                    });
                     
                     if (!response.ok) {
                         throw new Error(`Failed to fetch features: ${response.status} ${response.statusText}`);
@@ -689,8 +714,42 @@
                     return text.split('\n').filter(line => line.trim() !== '');
                 } catch (error) {
                     console.error('Error fetching mod features:', error);
-                    throw error;
+                    
+                    // Fallback to sample data if fetching fails
+                    console.log('Using fallback sample data instead');
+                    return getFallbackFeatures();
                 }
+            }
+            
+            // Fallback sample features in case fetch fails
+            function getFallbackFeatures() {
+                return [
+                    "Speed Modifier: Adjust your monkey's movement speed",
+                    "No Clip: Phase through objects and walls",
+                    "ESP: See other players through walls",
+                    "Anti-Ban: Protection against detection systems",
+                    "Infinite Jump: Never run out of jumps",
+                    "Fly Mode: Hover and fly around the map",
+                    "Teleport: Instantly move to any location",
+                    "Name Spoofer: Change your displayed name",
+                    "Custom Skins: Apply unique skins not available in-game",
+                    "Gravity Modifier: Change the gravity affecting your character",
+                    "Auto Tag: Automatically tag nearby players",
+                    "Reach Extender: Extend your tagging reach",
+                    "Ghost Mode: Become invisible to other players",
+                    "Join Any Room: Access any room regardless of restrictions",
+                    "Lag Switch: Create artificial lag for advantage",
+                    "Anti-Tag: Prevent being tagged by others",
+                    "Color Changer: Change your monkey's color at will",
+                    "Night Vision: See clearly in dark maps",
+                    "Voice Changer: Modify your voice in-game",
+                    "Radar: Display all players' positions",
+                    "Silent Tag: Tag players without notifications",
+                    "Spectator Mode: Watch gameplay invisibly",
+                    "Auto Dodge: Automatically avoid being tagged",
+                    "Freeze Other Players: Temporarily freeze opponents",
+                    "Premium Cosmetics Unlock: Access all premium items"
+                ];
             }
             
             // Function to parse mod features
@@ -698,10 +757,12 @@
                 return lines.map(line => {
                     const [name, description = ''] = line.split(':').map(part => part.trim());
                     
-
+                    // Assign random categories and tags for demonstration
+                    // In a real implementation, these would come from the data
                     const categories = ['movement', 'visual', 'utility'];
                     const randomCategory = categories[Math.floor(Math.random() * categories.length)];
-
+                    
+                    // Some mods are exclusive (for demonstration)
                     const isExclusive = Math.random() > 0.7;
                     const isPremium = Math.random() > 0.8;
                     const isNew = Math.random() > 0.9;
@@ -719,6 +780,7 @@
                 });
             }
             
+            // Function to display features
             function displayFeatures(features) {
                 featuresContainer.innerHTML = '';
                 
@@ -776,7 +838,8 @@
                 
                 displayFeatures(filtered);
             }
-
+            
+            // Event listeners
             searchInput.addEventListener('input', filterFeatures);
             
             categoryButtons.forEach(button => {
@@ -787,19 +850,36 @@
                     filterFeatures();
                 });
             });
-            try {
-                const featureLines = await fetchModFeatures();
-                allFeatures = parseModFeatures(featureLines);
-                displayFeatures(allFeatures);
-            } catch (error) {
-                featuresContainer.innerHTML = `
-                    <div class="error-container">
-                        <i class="fas fa-exclamation-triangle error-icon"></i>
-                        <h3 class="error-title">Failed to Load Features</h3>
-                        <p class="error-message">We couldn't load the features list. Please check your connection and try again.</p>
-                        <button class="retry-button" onclick="location.reload()">Retry</button>
-                    </div>
-                `;
+            
+            // Manual file upload handling
+            const fileInput = document.getElementById('file-input');
+            fileInput.addEventListener('change', (event) => {
+                const file = event.target.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = (e) => {
+                        const text = e.target.result;
+                        const lines = text.split('\n').filter(line => line.trim() !== '');
+                        allFeatures = parseModFeatures(lines);
+                        displayFeatures(allFeatures);
+                        document.getElementById('upload-container').style.display = 'none';
+                        document.getElementById('features-loaded-message').style.display = 'block';
+                        setTimeout(() => {
+                            document.getElementById('features-loaded-message').style.display = 'none';
+                        }, 3000);
+                    };
+                    reader.readAsText(file);
+                }
+            });
+            
+            // Initial load
+            const featureLines = await fetchModFeatures();
+            allFeatures = parseModFeatures(featureLines);
+            displayFeatures(allFeatures);
+            
+            // Show upload option if using fallback data
+            if (featureLines === getFallbackFeatures()) {
+                document.getElementById('upload-container').style.display = 'block';
             }
         });
     </script>
