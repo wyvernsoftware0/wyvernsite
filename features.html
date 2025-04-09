@@ -621,10 +621,11 @@
         
         <div class="feature-categories">
             <button class="category-btn active" data-category="all">All Features</button>
-            <button class="category-btn" data-category="movement">Movement</button>
-            <button class="category-btn" data-category="visual">Visual</button>
-            <button class="category-btn" data-category="utility">Utility</button>
-            <button class="category-btn" data-category="exclusive">Exclusive</button>
+            <button class="category-btn" data-category="Core">Core</button>
+            <button class="category-btn" data-category="Misc">Misc</button>
+            <button class="category-btn" data-category="Overpowered">Overpowered</button>
+            <button class="category-btn" data-category="Visual">Visual</button>
+            <button class="category-btn" data-category="GUI">GUI</button>
         </div>
     </section>
 
@@ -713,63 +714,89 @@
                 }
             }
             
-            // Fallback sample features in case fetch fails
+            // Fallback sample features in case fetch fails - updated format
             function getFallbackFeatures() {
                 return [
-                    "Speed Modifier: Adjust your monkey's movement speed",
-                    "No Clip: Phase through objects and walls",
-                    "ESP: See other players through walls",
-                    "Anti-Ban: Protection against detection systems",
-                    "Infinite Jump: Never run out of jumps",
-                    "Fly Mode: Hover and fly around the map",
-                    "Teleport: Instantly move to any location",
-                    "Name Spoofer: Change your displayed name",
-                    "Custom Skins: Apply unique skins not available in-game",
-                    "Gravity Modifier: Change the gravity affecting your character",
-                    "Auto Tag: Automatically tag nearby players",
-                    "Reach Extender: Extend your tagging reach",
-                    "Ghost Mode: Become invisible to other players",
-                    "Join Any Room: Access any room regardless of restrictions",
-                    "Lag Switch: Create artificial lag for advantage",
-                    "Anti-Tag: Prevent being tagged by others",
-                    "Color Changer: Change your monkey's color at will",
-                    "Night Vision: See clearly in dark maps",
-                    "Voice Changer: Modify your voice in-game",
-                    "Radar: Display all players' positions",
-                    "Silent Tag: Tag players without notifications",
-                    "Spectator Mode: Watch gameplay invisibly",
-                    "Auto Dodge: Automatically avoid being tagged",
-                    "Freeze Other Players: Temporarily freeze opponents",
-                    "Premium Cosmetics Unlock: Access all premium items"
+                    "Core:Speed Modifier:Adjust your monkey's movement speed",
+                    "Overpowered:No Clip:Phase through objects and walls",
+                    "Visual:ESP:See other players through walls",
+                    "Core:Anti-Ban:Protection against detection systems",
+                    "Overpowered:Infinite Jump:Never run out of jumps",
+                    "Overpowered:Fly Mode:Hover and fly around the map",
+                    "Core:Teleport:Instantly move to any location",
+                    "Misc:Name Spoofer:Change your displayed name",
+                    "Visual:Custom Skins:Apply unique skins not available in-game",
+                    "Misc:Gravity Modifier:Change the gravity affecting your character",
+                    "Overpowered:Auto Tag:Automatically tag nearby players",
+                    "Core:Reach Extender:Extend your tagging reach",
+                    "Overpowered:Ghost Mode:Become invisible to other players",
+                    "Misc:Join Any Room:Access any room regardless of restrictions",
+                    "Core:Lag Switch:Create artificial lag for advantage",
+                    "Overpowered:Anti-Tag:Prevent being tagged by others",
+                    "Visual:Color Changer:Change your monkey's color at will",
+                    "Visual:Night Vision:See clearly in dark maps",
+                    "Misc:Voice Changer:Modify your voice in-game",
+                    "Visual:Radar:Display all players' positions",
+                    "Core:Silent Tag:Tag players without notifications",
+                    "Misc:Spectator Mode:Watch gameplay invisibly",
+                    "Overpowered:Auto Dodge:Automatically avoid being tagged",
+                    "Overpowered:Freeze Other Players:Temporarily freeze opponents",
+                    "GUI:Menu Color:Customize the menu appearance",
+                    "GUI:Hotkeys:Configure custom key bindings",
+                    "GUI:Opacity:Adjust menu transparency",
+                    "GUI:Position:Change menu location on screen",
+                    "GUI:Auto-Hide:Automatically hide menu when not in use"
                 ];
             }
             
-            // Function to parse mod features
+            // Function to parse mod features with new format
             function parseModFeatures(lines) {
                 return lines.map(line => {
-                    const [name, description = ''] = line.split(':').map(part => part.trim());
+                    // Split by colon, but only up to 3 parts
+                    const parts = line.split(':');
                     
-                    // Assign random categories and tags for demonstration
-                    // In a real implementation, these would come from the data
-                    const categories = ['movement', 'visual', 'utility'];
-                    const randomCategory = categories[Math.floor(Math.random() * categories.length)];
+                    // Handle the Category:Name:Description format
+                    let category, name, description;
                     
-                    // Some mods are exclusive (for demonstration)
-                    const isExclusive = Math.random() > 0.7;
-                    const isPremium = Math.random() > 0.8;
-                    const isNew = Math.random() > 0.9;
+                    if (parts.length >= 3) {
+                        // Full format: Category:Name:Description
+                        category = parts[0].trim();
+                        name = parts[1].trim();
+                        // Join the rest as description in case there are colons in the description
+                        description = parts.slice(2).join(':').trim();
+                    } else if (parts.length === 2) {
+                        // Partial format: Category:Name
+                        category = parts[0].trim();
+                        name = parts[1].trim();
+                        description = 'No description available.';
+                    } else if (parts.length === 1) {
+                        // Minimal format: Just Name
+                        category = 'Misc'; // Default category
+                        name = parts[0].trim();
+                        description = 'No description available.';
+                    } else {
+                        // Invalid line
+                        return null;
+                    }
+                    
+                    // Skip empty lines
+                    if (!name) return null;
+                    
+                    // Skip any features with "Settings" category
+                    if (category === "Settings") return null;
+                    
+                    // Validate category against the allowed ones
+                    const validCategories = ['Core', 'Misc', 'Overpowered', 'Visual', 'GUI'];
+                    if (!validCategories.includes(category)) {
+                        category = 'Misc'; // Default to Misc if category is invalid
+                    }
                     
                     return {
                         name,
-                        description: description || 'No description available.',
-                        category: isExclusive ? 'exclusive' : randomCategory,
-                        tags: [
-                            ...(isExclusive ? ['exclusive'] : []),
-                            ...(isPremium ? ['premium'] : []),
-                            ...(isNew ? ['new'] : [])
-                        ]
+                        description,
+                        category
                     };
-                });
+                }).filter(item => item !== null); // Remove null entries
             }
             
             // Function to display features
@@ -792,18 +819,9 @@
                     card.className = 'feature-card';
                     card.style.animationDelay = `${index * 50}ms`;
                     
-                    let tagHTML = '';
-                    if (feature.tags.includes('exclusive')) {
-                        tagHTML = `<span class="feature-tag tag-exclusive">Exclusive</span>`;
-                    } else if (feature.tags.includes('premium')) {
-                        tagHTML = `<span class="feature-tag tag-premium">Premium</span>`;
-                    } else if (feature.tags.includes('new')) {
-                        tagHTML = `<span class="feature-tag tag-new">New</span>`;
-                    }
-                    
                     card.innerHTML = `
-                        ${tagHTML}
                         <h3 class="feature-name">${feature.name}</h3>
+                        <span class="feature-category-tag" style="position: absolute; top: 15px; right: 15px; background: linear-gradient(135deg, var(--primary), var(--secondary)); color: white; padding: 5px 12px; border-radius: 20px; font-size: 0.7rem; font-family: 'Fira Code', monospace;">${feature.category}</span>
                         <p class="feature-description">${feature.description}</p>
                     `;
                     
