@@ -630,9 +630,13 @@
 
     <div id="upload-container" style="display: none; text-align: center; max-width: 600px; margin: 0 auto 50px; padding: 30px; background-color: var(--bg-card); border-radius: 12px; box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);">
         <i class="fas fa-file-upload" style="font-size: 2.5rem; color: var(--primary); margin-bottom: 20px;"></i>
-        <h3 style="font-size: 1.5rem; margin-bottom: 15px;">Couldn't auto-load features</h3>
-        <p style="color: var(--text-secondary); margin-bottom: 20px;">We're showing sample features. For actual features, download the file from g.wyvern.li/auth/files/modmenufeatures.txt and upload it here:</p>
-        <label for="file-input" style="display: inline-block; padding: 12px 25px; background: linear-gradient(135deg, var(--primary), var(--secondary)); color: white; border-radius: 8px; cursor: pointer; font-weight: 600; transition: all 0.3s ease;">
+        <h3 style="font-size: 1.5rem; margin-bottom: 15px;">Features File Not Found</h3>
+        <p style="color: var(--text-secondary); margin-bottom: 20px;">We couldn't find the features file at '/assets/modmenufeatures.txt'. Please follow these steps:</p>
+        <ol style="text-align: left; color: var(--text-secondary); margin-bottom: 30px; padding-left: 20px;">
+            <li style="margin-bottom: 10px;">Make sure you've placed the file at: <code>/assets/modmenufeatures.txt</code></li>
+            <li style="margin-bottom: 10px;">Or download the file from <a href="https://g.wyvern.li/auth/files/modmenufeatures.txt" target="_blank" style="color: var(--primary); text-decoration: underline;">g.wyvern.li</a> and upload it below</li>
+        </ol>
+        <label for="file-input" style="display: inline-block; padding: 12px 25px; background: linear-gradient(135deg, var(--primary), var(--secondary)); color: white; border-radius: 8px; cursor: pointer; font-weight: 600; transition: all 0.3s ease; box-shadow: 0 8px 15px rgba(110, 68, 255, 0.4);">
             Upload Features File
         </label>
         <input type="file" id="file-input" accept=".txt" style="display: none;">
@@ -690,21 +694,11 @@
             let allFeatures = [];
             let currentCategory = 'all';
             
-            // Function to fetch mod features
+            // Function to fetch mod features from local file
             async function fetchModFeatures() {
                 try {
-                    // Properly format the URL with https protocol
-                    const url = 'https://g.wyvern.li/auth/files/modmenufeatures.txt';
-                    
-                    // Try to fetch with proper CORS handling
-                    const response = await fetch(url, {
-                        method: 'GET',
-                        mode: 'cors',
-                        cache: 'no-cache',
-                        headers: {
-                            'Accept': 'text/plain'
-                        }
-                    });
+                    // Fetch from local path - no CORS issues
+                    const response = await fetch('/assets/modmenufeatures.txt');
                     
                     if (!response.ok) {
                         throw new Error(`Failed to fetch features: ${response.status} ${response.statusText}`);
@@ -714,9 +708,7 @@
                     return text.split('\n').filter(line => line.trim() !== '');
                 } catch (error) {
                     console.error('Error fetching mod features:', error);
-                    
-                    // Fallback to sample data if fetching fails
-                    console.log('Using fallback sample data instead');
+                    console.log('Falling back to sample data');
                     return getFallbackFeatures();
                 }
             }
@@ -872,13 +864,39 @@
                 }
             });
             
-            // Initial load
-            const featureLines = await fetchModFeatures();
-            allFeatures = parseModFeatures(featureLines);
-            displayFeatures(allFeatures);
-            
-            // Show upload option if using fallback data
-            if (featureLines === getFallbackFeatures()) {
+            // Initial load with attempt to fetch actual data
+            try {
+                const featureLines = await fetchModFeatures();
+                allFeatures = parseModFeatures(featureLines);
+                displayFeatures(allFeatures);
+                
+                // If we're showing fallback data, show the upload option
+                if (featureLines === getFallbackFeatures()) {
+                    document.getElementById('upload-container').style.display = 'block';
+                    
+                    // Add notice only if using fallback data
+                    const noticeDiv = document.createElement('div');
+                    noticeDiv.style.gridColumn = "1 / -1";
+                    noticeDiv.style.padding = "15px";
+                    noticeDiv.style.marginBottom = "20px";
+                    noticeDiv.style.backgroundColor = "rgba(110, 68, 255, 0.1)";
+                    noticeDiv.style.borderRadius = "8px";
+                    noticeDiv.style.borderLeft = "4px solid var(--primary)";
+                    noticeDiv.innerHTML = `
+                        <p style="font-size: 1rem; color: var(--text-primary); margin-bottom: 0;">
+                            <i class="fas fa-info-circle" style="color: var(--primary); margin-right: 10px;"></i>
+                            These are <strong>sample features</strong> for demonstration. Upload the actual features file above for current features.
+                        </p>
+                    `;
+                    featuresContainer.insertBefore(noticeDiv, featuresContainer.firstChild);
+                } else {
+                    // If we successfully loaded real data, hide the upload container
+                    document.getElementById('upload-container').style.display = 'none';
+                }
+            } catch (error) {
+                console.error("Error during initial load:", error);
+                allFeatures = parseModFeatures(getFallbackFeatures());
+                displayFeatures(allFeatures);
                 document.getElementById('upload-container').style.display = 'block';
             }
         });
