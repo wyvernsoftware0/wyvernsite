@@ -8,20 +8,16 @@ Overpowered:Bug New Player Gun:If a new player joins they cannot see that player
 Overpowered:Bug New Players:If a new players joins they can only see you, no one else
 Core:Car Monke:
 GUI:Click stuff ingame:
-Overpowered:Crash All:
-Overpowered:Crash Gun:
-Overpowered:Crash On Touch:
 Overpowered:Crazy Gun:
 Overpowered:Destroy All Boards:
 Core:Desync:
 Core:Disable Network Triggers [CS]:Client sided
 Misc:Disable Rain:
-Core:Disconnect [B]:Disconnects from room
+Core:Disconnect [Left_Joystick]:Disconnects from room
 Core:Drop All [Right Trigger]:
 Overpowered:Effect Gun:
 GUI:Emulate Controller:
 Visual:ESP:Highlights other players.
-Overpowered:Fling All:
 Core:Fly [B]:
 GUI:Freecam:Fly with WASD
 Overpowered:Get Guardian:
@@ -38,9 +34,7 @@ Core:Invis Monke [Y]:
 Overpowered:Lag All:Causes lag for all players.
 Overpowered:Lag All V2:Causes lag for all players.
 Overpowered:Lag Gun:
-Overpowered:Lag Room:Lags players and the room.
 Overpowered:Lag Spike All:Causes lag spikes for all players.
-Overpowered:Lag Spike All V2:Causes lag spikes for all players.
 Overpowered:Lag Spike Gun:Lag a certain player.
 Core:Legit Wall Walk [Left Grip]:
 Core:Long Arms:
@@ -49,8 +43,8 @@ Core:Mute All:Mutes all players
 Core:Mute gun:Mutes player you shoot at
 Visual:Nametags:Shows names above players' heads.
 Core:No Gravity:
-Core:NoClip [TriggerLeft]:
-Core:Platform Monke:
+Core:NoClip [Right_Grip]:
+Core:Platform Monke:Creates platforms below your hands.
 Core:Random Identity:New name and new color. Only in stump
 Core:Rejoin:Rejoins current room
 Core:Remove Tag Mat:
@@ -58,7 +52,7 @@ Core:Reverse Gravity:
 Misc:RGB Monke:
 Misc:Room Hop:Joins new room
 Overpowered:Ropes Towards You [LEFT TRIGGER]:
-Core:Run [GripRight]:Automatically runs for you
+Core:Run [Right_Grip]:Automatically runs for you
 Overpowered:Scatter ropes [Left Trigger]:
 Overpowered:Skateboard Gatling Gun [Grip Right]:
 Visual:Skeleton ESP:Draws skeleton lines on players.
